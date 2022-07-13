@@ -115,4 +115,3 @@ int print_hex(va_list list)
 		}
 		else
 			hex_rep[len] = rem_num + 48;
-
