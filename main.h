@@ -1,36 +1,47 @@
-#ifndef HOLB_H
-#define HOLB_H
+#ifndef PRINT_F
+#define PRINT_F
 
-#define BUFSIZE 1025
+#include <unistd.h>
+#include <stdlib.h>
 #include <stdarg.h>
 
 /**
-  * struct validTypes - structure to lookup functions for valid types
-  * @valid: flags are preceded by a '%' character.
-  * @f: pointer to function
-  */
-typedef struct validTypes
+* struct convert - defines a structure for symbols and functions
+*
+* @sym: The operator
+* @f: The function associated
+*/
+struct convert
 {
-	char *valid;
-	char *(*f)();
-} v_types;
+	char *sym;
+	int (*f)(va_list);
+};
+typedef struct convert conver_t;
 
+/*Main functions*/
+int parser(const char *format, conver_t f_list[], va_list arg_list);
 int _printf(const char *format, ...);
-char *(*get_valid_type(char s))(va_list);
-char *found_char(va_list c);
-char *found_string(va_list *s);
-char *found_percent();
-char *found_int(va_list n);
-char *found_unsigned(va_list usign);
-char *found_nothing(char);
-char *found_reverse(va_list s);
-char *found_rot13(va_list s);
-char *found_octal(va_list n);
-char *_memcpy(char *dest, char *src, unsigned int n, unsigned int bufferlen);
-int _strlen(char *s);
-void _puts(char *buffer, int size);
-int alloc_buffer(char *hold, int hlen, char *buffer, int blen, double *total);
-char *ctos(char c);
+int _write_char(char);
+int print_char(va_list);
+int print_string(va_list);
+int print_percent(va_list);
+int print_integer(va_list);
+int print_number(va_list);
+int print_binary(va_list);
+int print_reversed(va_list arg);
+int rot13(va_list);
+int unsigned_integer(va_list);
+int print_octal(va_list list);
+int print_hex(va_list list);
+int print_heX(va_list list);
+
+/*Helper functions*/
+unsigned int base_len(unsigned int, int);
+char *rev_string(char *);
+void write_base(char *str);
+char *_memcpy(char *dest, char *src, unsigned int n);
+int print_unsgined_number(unsigned int);
+
 
 #endif
 
