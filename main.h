@@ -1,36 +1,59 @@
-#ifndef HOLB_H
-#define HOLB_H
+#ifndef MAIN_H
+#define MAIN_H
 
-#define BUFSIZE 1025
 #include <stdarg.h>
+#include <stdlib.h>
 
 /**
-  * struct validTypes - structure to lookup functions for valid types
-  * @valid: flags are preceded by a '%' character.
-  * @f: pointer to function
-  */
-typedef struct validTypes
+ * struct prv - struct prv
+ * @id: chat
+ * @f: function pointer
+ */
+
+typedef struct prv
 {
-	char *valid;
-	char *(*f)();
-} v_types;
+	char id;
+	int (*f)(va_list args);
+} prv_t;
 
 int _printf(const char *format, ...);
-char *(*get_valid_type(char s))(va_list);
-char *found_char(va_list c);
-char *found_string(va_list *s);
-char *found_percent();
-char *found_int(va_list n);
-char *found_unsigned(va_list usign);
-char *found_nothing(char);
-char *found_reverse(va_list s);
-char *found_rot13(va_list s);
-char *found_octal(va_list n);
-char *_memcpy(char *dest, char *src, unsigned int n, unsigned int bufferlen);
-int _strlen(char *s);
-void _puts(char *buffer, int size);
-int alloc_buffer(char *hold, int hlen, char *buffer, int blen, double *total);
-char *ctos(char c);
+
+int (*get_func(const char id))(va_list);
+
+int _putchar(int ch);
+
+int pr_char(va_list args);
+
+int pr_str(va_list args);
+
+int pr_bin(va_list args);
+int cnvrt_to_bin(unsigned int n, int *cnt);
+
+int pr_dec(va_list args);
+int cnvrt_to_dec(int n, int *cnt);
+
+int pr_un_int(va_list args);
+int cnvrt_to_un_int(unsigned int n, int *cnt);
+
+int pr_octa(va_list args);
+int cnvrt_to_octa(unsigned int n, int *cnt);
+
+int pr_hex(va_list args);
+int cnvrt_to_hex(unsigned int n, int *cnt);
+
+int pr_heX(va_list args);
+int cnvrt_to_heX(unsigned int n, int *cnt);
+
+int get_base_len(int n, int b);
+
+int pr_non_prt(va_list args);
+
+int pr_rev(va_list args);
+int get_str_len(char *s);
+
+int pr_rot13(va_list args);
+
+int pr_ptr(va_list args);
+int cnvrt_to_mem_addr(unsigned long int n, int *ptr);
 
 #endif
-
