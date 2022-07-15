@@ -1,47 +1,59 @@
-#ifndef PRINT_F
-#define PRINT_F
+#ifndef MAIN_H
+#define MAIN_H
 
-#include <unistd.h>
-#include <stdlib.h>
 #include <stdarg.h>
+#include <stdlib.h>
 
 /**
-* struct convert - defines a structure for symbols and functions
-*
-* @sym: The operator
-* @f: The function associated
-*/
-struct convert
+ * struct prv - struct prv
+ * @id: chat
+ * @f: function pointer
+ */
+
+typedef struct prv
 {
-	char *sym;
-	int (*f)(va_list);
-};
-typedef struct convert conver_t;
+	char id;
+	int (*f)(va_list args);
+} prv_t;
 
-/*Main functions*/
-int parser(const char *format, conver_t f_list[], va_list arg_list);
 int _printf(const char *format, ...);
-int _write_char(char);
-int print_char(va_list);
-int print_string(va_list);
-int print_percent(va_list);
-int print_integer(va_list);
-int print_number(va_list);
-int print_binary(va_list);
-int print_reversed(va_list arg);
-int rot13(va_list);
-int unsigned_integer(va_list);
-int print_octal(va_list list);
-int print_hex(va_list list);
-int print_heX(va_list list);
 
-/*Helper functions*/
-unsigned int base_len(unsigned int, int);
-char *rev_string(char *);
-void write_base(char *str);
-char *_memcpy(char *dest, char *src, unsigned int n);
-int print_unsgined_number(unsigned int);
+int (*get_func(const char id))(va_list);
 
+int _putchar(int ch);
+
+int pr_char(va_list args);
+
+int pr_str(va_list args);
+
+int pr_bin(va_list args);
+int cnvrt_to_bin(unsigned int n, int *cnt);
+
+int pr_dec(va_list args);
+int cnvrt_to_dec(int n, int *cnt);
+
+int pr_un_int(va_list args);
+int cnvrt_to_un_int(unsigned int n, int *cnt);
+
+int pr_octa(va_list args);
+int cnvrt_to_octa(unsigned int n, int *cnt);
+
+int pr_hex(va_list args);
+int cnvrt_to_hex(unsigned int n, int *cnt);
+
+int pr_heX(va_list args);
+int cnvrt_to_heX(unsigned int n, int *cnt);
+
+int get_base_len(int n, int b);
+
+int pr_non_prt(va_list args);
+
+int pr_rev(va_list args);
+int get_str_len(char *s);
+
+int pr_rot13(va_list args);
+
+int pr_ptr(va_list args);
+int cnvrt_to_mem_addr(unsigned long int n, int *ptr);
 
 #endif
-
